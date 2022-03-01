@@ -21,3 +21,16 @@
     color: black;
 }
 
+.headerOption__icon{
+    object-fit: contain;
+    height: 25px !important;
+    width: 25px !important;
+
+}
+.headerOption__avatar{
+    object-fit: contain;
+    height: 30px !important;
+    width: 30px !important;
+    border-radius: 50%;
+}
+
