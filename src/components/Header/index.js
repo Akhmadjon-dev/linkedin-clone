@@ -1,5 +1,5 @@
 import React from 'react'
-import { SupervisorAccount, Home, Search } from '@material-ui/icons';
+import { SupervisorAccount, Home, Search, BusinessCenter, Chat, Notifications } from '@material-ui/icons';
 import logo from '../../assets/img/linkedin.png'
 import HeaderOptions from './HeaderOptions';
 import "./header.css"
@@ -17,6 +17,10 @@ function Header() {
         <div className="header__right">
              <HeaderOptions Icon={Home} title="Home" />
              <HeaderOptions Icon={SupervisorAccount} title="My Network" />
+             <HeaderOptions Icon={BusinessCenter} title="Jobs" />
+             <HeaderOptions Icon={Chat} title="Messaging"  />
+             <HeaderOptions Icon={Notifications} title="Notifications" />
+             
         </div>
     </div>
   )
