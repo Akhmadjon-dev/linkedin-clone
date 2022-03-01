@@ -1,6 +1,7 @@
 import React from 'react'
-import SearchIcon from '@material-ui/icons/Search';
+import { SupervisorAccount, Home, Search } from '@material-ui/icons';
 import logo from '../../assets/img/linkedin.png'
+import HeaderOptions from './HeaderOptions';
 import "./header.css"
 function Header() {
   return (
@@ -9,12 +10,13 @@ function Header() {
             <img src={logo} alt="" />
             <div className="header__search">
                 {/* search icon */}
-                <SearchIcon />
+                <Search />
                 <input type="text" placeholder="Search" />
             </div>
         </div> 
         <div className="header__right">
-             
+             <HeaderOptions Icon={Home} title="Home" />
+             <HeaderOptions Icon={SupervisorAccount} title="My Network" />
         </div>
     </div>
   )
