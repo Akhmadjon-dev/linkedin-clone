@@ -5,12 +5,15 @@ import {
   Image,
   Subscriptions,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import InputOption from "./InputOption";
-import "./Feed.css";
 import Post from "../Post";
 
+import "./Feed.css";
+
 function Feed() {
+    const [posts, setPosts] = useState([]);
+    
   return (
     <div className="feed">
       <div className="feed__inputContainer">
