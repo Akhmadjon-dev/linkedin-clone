@@ -26,10 +26,30 @@ function Login() {
 
   const loginHandler = (e) => {
     e.preventDefault();
+
+    auth
+      .signInWithEmailAndPassword(data.email, data.password)
+      .then((userAuth) => {
+        dispatch(
+          login({
+            name: userAuth.user.name,
+            photoUrl: userAuth.user.photoURL,
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+          })
+        );
+      })
+      .catch((error) =>
+        alert(
+          "Error: " +
+            error.message +
+            " Please try again or register if you are not registered"
+        )
+      );
   };
 
   const register = () => {
-    if (data.email && data.password && data.name && data.photoUrl) {
+    if (data.email && data.password) {
       auth
         .createUserWithEmailAndPassword(data.email, data.password)
         .then((userAuth) => {
@@ -65,7 +85,7 @@ function Login() {
   return (
     <div className="login">
       <img src={logo} alt="" />
-      <form onSubmit={login}>
+      <form onSubmit={loginHandler}>
         <input
           name="name"
           value={data.name}
