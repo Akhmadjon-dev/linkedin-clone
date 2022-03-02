@@ -1,22 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import logo from "../../assets/img/linkedin.png";
+import { auth } from "../../config/firebase";
+import { login } from "../../features/userSlice";
 import "./login.css";
-function Login() {
 
-  const login = () => {
-      
+const initialState = {
+  email: "",
+  password: "",
+  name: "",
+  photoUrl: "",
+};
+
+function Login() {
+  const [data, setData] = useState(initialState);
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
   };
-    
-  const register = () => {};
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+  };
+
+  const register = () => {
+    if (data.email && data.password && data.name && data.photoUrl) {
+      auth
+        .createUserWithEmailAndPassword(data.email, data.password)
+        .then((userAuth) => {
+          userAuth.user
+            .updateProfile({
+              displayName: data.name,
+              photoURL: data.photoUrl,
+            })
+            .then(() => {
+              dispatch(
+                login({
+                  displayName: data.name,
+                  photoUrl: data.photoUrl,
+                  email: userAuth.user.email,
+                  uid: userAuth.user.uid,
+                })
+              );
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      alert("Register Successfully");
+    } else {
+      alert("Please fill all field");
+    }
+  };
 
   return (
     <div className="login">
       <img src={logo} alt="" />
-      <form>
-        <input type="text" placeholder="Full name" />
-        <input type="text" placeholder="Profile URL" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+      <form onSubmit={login}>
+        <input
+          name="name"
+          value={data.name}
+          onChange={handleChange}
+          type="text"
+          placeholder="Full name"
+        />
+        <input
+          name="photoUrl"
+          value={data.photoUrl}
+          onChange={handleChange}
+          type="text"
+          placeholder="Profile URL"
+        />
+        <input
+          name="email"
+          value={data.email}
+          onChange={handleChange}
+          type="email"
+          placeholder="Email"
+        />
+        <input
+          name="password"
+          value={data.password}
+          onChange={handleChange}
+          type="password"
+          placeholder="Password"
+        />
         <button type="submit">Sign In</button>
       </form>
       <p>
