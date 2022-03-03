@@ -9,13 +9,14 @@ import {
 } from "@material-ui/icons";
 import logo from "../../assets/img/linkedin.png";
 import HeaderOptions from "./HeaderOptions";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {auth} from '../../config/firebase'
-import {logout} from '../../features/userSlice'
+import {logout, selectUser} from '../../features/userSlice'
 import "./header.css";
 
 
 function Header() {
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
@@ -41,7 +42,7 @@ function Header() {
         <HeaderOptions Icon={Notifications} title="Notifications" />
         <HeaderOptions
           onClick={logoutHandler}
-          avatar="https://ahmadjon.uz/images/Akhmadjon-Abdusamadov.jpg"
+          avatar={user?.photoUrl}
           title="Me"
         />
       </div>
