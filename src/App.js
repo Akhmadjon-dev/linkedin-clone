@@ -8,6 +8,7 @@ import { login, logout, selectUser } from "./features/userSlice";
 import { useEffect } from 'react';
 import { auth } from "./config/firebase";
 import { useDispatch } from "react-redux";
+import Widgets from "./components/Widgets";
 
 function App() {
   const user = useSelector(selectUser);
@@ -41,6 +42,7 @@ function App() {
           <Sidebar />
 
           <Feed />
+           <Widgets />
         </div>
       )}
     </div>
