@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Login from "./components/Login";
 import Sidebar from "./components/Sidebar";
 import { login, logout, selectUser } from "./features/userSlice";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { auth } from "./config/firebase";
 import { useDispatch } from "react-redux";
 import Widgets from "./components/Widgets";
@@ -24,11 +24,10 @@ function App() {
             uid: userAuth.uid,
           })
         );
-      }else{
+      } else {
         dispatch(logout());
       }
-    }
-    );
+    });
   }, []);
 
   return (
@@ -42,7 +41,7 @@ function App() {
           <Sidebar />
 
           <Feed />
-           <Widgets />
+          <Widgets />
         </div>
       )}
     </div>

@@ -9,19 +9,18 @@ import {
 } from "@material-ui/icons";
 import logo from "../../assets/img/linkedin.png";
 import HeaderOptions from "./HeaderOptions";
-import { useDispatch, useSelector } from 'react-redux';
-import {auth} from '../../config/firebase'
-import {logout, selectUser} from '../../features/userSlice'
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "../../config/firebase";
+import { logout, selectUser } from "../../features/userSlice";
 import "./header.css";
-
 
 function Header() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    dispatch(logout())
-    auth.signOut()
+    dispatch(logout());
+    auth.signOut();
   };
 
   return (
