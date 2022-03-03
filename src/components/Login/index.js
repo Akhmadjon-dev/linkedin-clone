@@ -14,6 +14,8 @@ const initialState = {
 
 function Login() {
   const [data, setData] = useState(initialState);
+  const [isRegistered, setIsRegistered] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -48,7 +50,8 @@ function Login() {
       );
   };
 
-  const register = () => {
+  const register = (e) => {
+    e.preventDefault();
     if (data.email && data.password) {
       auth
         .createUserWithEmailAndPassword(data.email, data.password)
@@ -85,21 +88,27 @@ function Login() {
   return (
     <div className="login">
       <img src={logo} alt="" />
-      <form onSubmit={loginHandler}>
-        <input
-          name="name"
-          value={data.name}
-          onChange={handleChange}
-          type="text"
-          placeholder="Full name"
-        />
-        <input
-          name="photoUrl"
-          value={data.photoUrl}
-          onChange={handleChange}
-          type="text"
-          placeholder="Profile URL"
-        />
+      <form onSubmit={ isRegistered ?  loginHandler : register}>
+       {
+          !isRegistered && (
+            <>
+               <input
+                name="name"
+                value={data.name}
+                onChange={handleChange}
+                type="text"
+                placeholder="Full name"
+              />
+              <input
+                name="photoUrl"
+                value={data.photoUrl}
+                onChange={handleChange}
+                type="text"
+                placeholder="Profile URL"
+              />
+            </>
+          )
+       }
         <input
           name="email"
           value={data.email}
@@ -114,14 +123,27 @@ function Login() {
           type="password"
           placeholder="Password"
         />
-        <button type="submit">Sign In</button>
+        <button type="submit">
+          {isRegistered ? "Login" : "Register"}
+        </button>
       </form>
-      <p>
-        Not a member?{" "}
-        <span onClick={register} className="login__register">
-          Register Now
-        </span>{" "}
-      </p>
+      {
+        isRegistered ? (
+          <p>
+            Not a member?{" "}
+            <span onClick={() => setIsRegistered(false)} className="login__register">
+              Register Now
+            </span>{" "}
+          </p> 
+        ): (
+          <p>
+            Already have an account?{" "}
+            <span onClick={() => setIsRegistered(true)} className="login__register">
+              Login now
+            </span>{" "}
+          </p> 
+        )
+      }
     </div>
   );
 }
